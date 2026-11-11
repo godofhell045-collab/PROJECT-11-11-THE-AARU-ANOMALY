@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090d14">
+<title>11:11 — The Aaru Anomaly</title>
+<style>
+:root{--bg:#090d14;--panel:#111a27;--panel2:#0b131e;--line:#2b4054;--mint:#a9f2d0;--pink:#f3b7d2;--gold:#f2d99f;--text:#edf3f7;--muted:#9aaebe}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font:15px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;background:radial-gradient(ellipse at 50% -15%,#284052 0,#101a27 38%,#070a10 100%)}
+main{width:min(780px,92vw);margin:auto;padding:22px 0 45px}.top,.meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10px;letter-spacing:.15em;text-transform:uppercase}.top span:last-child,.meta span:last-child{text-align:right}
+.track{height:5px;background:#1b2a38;border-radius:9px;margin:15px 0 8px;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--pink));transition:width .35s}
+.panel{position:relative;overflow:hidden;margin-top:18px;padding:clamp(21px,5vw,42px);border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#142130f5,#0b131ef5);box-shadow:0 25px 90px #0009}
+.panel:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.09;background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px)}
+.kicker{color:var(--mint);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+h1{font-size:clamp(42px,10vw,76px);line-height:.9;letter-spacing:-.08em;margin:22px 0}h2{font-size:clamp(26px,6vw,39px);line-height:1.08;letter-spacing:-.05em;margin:12px 0 17px}h3{font-size:16px;color:var(--gold);margin:20px 0 8px}
+p{color:#cbd6df;margin:12px 0}.pink{color:var(--pink)}.mint{color:var(--mint)}.gold{color:var(--gold)}.muted{color:var(--muted)}.small{font-size:11px}
+.rule{height:1px;background:var(--line);margin:23px 0}.terminal{white-space:pre-line;background:#071019;border:1px solid #263d50;border-radius:12px;padding:15px;color:var(--mint);font-size:12px;line-height:1.85}
+.tags{margin:14px 0}.tag{display:inline-block;border:1px solid #354d60;border-radius:99px;padding:5px 9px;margin:3px 4px 3px 0;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.actions{display:grid;gap:10px;margin-top:22px}button{position:relative;z-index:1;width:100%;text-align:left;font:inherit;cursor:pointer;padding:13px 15px;border:1px solid #3b566a;border-radius:11px;background:#142433;color:var(--text);transition:.18s}button:hover{transform:translateY(-1px);background:#1c3345;border-color:var(--mint)}button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.primary{background:var(--mint);border-color:var(--mint);color:#07130e;font-weight:900}.primary:hover{background:#d1ffe9;color:#07130e}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.tile{background:#0b1520;border:1px solid var(--line);border-radius:12px;padding:13px}.tile b{display:block;color:var(--mint);font-size:12px;margin-bottom:5px}.tile span{font-size:12px;color:#b7c6d1}
+.center{text-align:center}.number{font-size:58px;line-height:1;color:var(--pink);font-weight:900;letter-spacing:-.08em}.stamp{display:inline-block;border:1px solid var(--pink);color:var(--pink);padding:5px 10px;transform:rotate(-3deg);font-size:10px;letter-spacing:.15em}
+footer{text-align:center;color:#687d8c;font-size:10px;margin-top:17px;letter-spacing:.1em}
+@media(max-width:480px){.grid{grid-template-columns:1fr}.top,.meta{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+ <div class="top"><span>INDEPENDENT ANOMALY BUREAU</span><span>FILE 11:11 / A-01</span></div>
+ <div class="track"><div class="fill" id="fill"></div></div>
+ <div class="meta"><span id="stage">AWAITING SUBJECT</span><span id="counter">0 / 11</span></div>
+ <section class="panel" id="app" aria-live="polite">
+  <div class="kicker">Incoming transmission // 11:11</div>
+  <h1>THE<br><span class="pink">AARU</span><br>ANOMALY</h1>
+  <p>A strange signal has interrupted the bureau's systems. It carries one name, a suspicious amount of chaos, and absolutely no respect for the concept of being predictable.</p>
+  <div class="terminal">ANOMALY DETECTED: AARU
+OVERTHINKING INDEX: UNMEASURABLE
+BAKCHODI LEVEL: ABOVE LIMIT
+SOFT-HEART SIGNATURE: CONFIRMED
+SYSTEM STATUS: SLIGHTLY CONFUSED</div>
+  <div class="tags"><span class="tag">classified</span><span class="tag">mild roasting</span><span class="tag">one secret ending</span></div>
+  <p class="gold">If you're reading this, Aaru, the investigation has already found you.</p>
+  <button class="primary" onclick="begin()">ACCEPT THE CASE →</button>
+  <p class="muted small">Best played with sound off and curiosity switched on.</p>
+ </section>
+ <footer>THE SUBJECT IS NOT IN TROUBLE. PROBABLY.</footer>
+</main>
+<script>
+const app=document.getElementById('app'),fill=document.getElementById('fill'),stageEl=document.getElementById('stage'),counter=document.getElementById('counter');
+let n=0,answers=[];
+function progress(label){stageEl.textContent=label;counter.textContent=n+' / 11';fill.style.width=(n/11*100)+'%'}
+function screen(k,title,body,buttons){app.innerHTML=`<div class="kicker">${k}</div><h2>${title}</h2>${body}<div class="actions">${buttons}</div>`}
+function pick(v){answers.push(v);n++}
+function begin(){n=0;answers=[];step1()}
+function step1(){progress('01 // IDENTIFICATION');screen('01 // SUBJECT IDENTIFICATION','Aaru, state your defence.',`<p>The bureau has three theories. Pick the one you can defend with a straight face.</p><div class="tags"><span class="tag">alias: Aaru</span><span class="tag">species: chaos with feelings</span><span class="tag">status: suspiciously innocent</span></div>`,`<button onclick="pick('innocent');step2()">I'm completely innocent.</button><button onclick="pick('annoyed');step2()">This investigation is already annoying.</button><button onclick="pick('who');step2()">Who gave you permission to investigate me?</button>`)}
+function step2(){progress('02 // PERSONALITY SCAN');screen('02 // PSYCHOLOGICAL DAMAGE','Choose your most believable trait.',`<p>The scanner has detected several overlapping personalities. Which one is currently in charge?</p>`,`<button onclick="pick('overthink');step3()">Professional overthinker. Unpaid, unfortunately.</button><button onclick="pick('nonchalant');step3()">Nonchalant. Until suddenly not.</button><button onclick="pick('besharam');step3()">Besharam by choice, soft-hearted by accident.</button><button onclick="pick('all');step3()">All of the above. Keep up.</button>`)}
+function step3(){progress('03 // ROAST ARCHIVE');let line='The server has prepared a highly scientific observation.';screen('03 // OFFICIAL FINDINGS','Your report is ready.',`<div class="terminal">SUBJECT PROFILE:
+• Can be nonchalant and an overthinker in the same afternoon.
+• Has a soft side protected by a questionable amount of attitude.
+• May cause unnecessary laughter and then deny responsibility.
+
+VERDICT: TOO MUCH PERSONALITY FOR ONE NOTIFICATION.</div><p class="gold">${line} The bureau would like to apologise to the word “normal”.</p>`,`<button class="primary" onclick="pick('accepted roast');step4()">I accept these allegations →</button>`)}
+function step4(){progress('04 // CHAOS TEST');screen('04 // CHAOS TEST','A minor emergency has occurred.',`<p>The group chat has gone quiet for 4 minutes. What is your most likely response?</p>`,`<button onclick="pick('send meme');step5()">Send a meme. Restore balance.</button><button onclick="pick('observe');step5()">Observe silently, then say something unhinged.</button><button onclick="pick('overthink silence');step5()">Wonder if everyone is secretly mad at me.</button>`)}
+function step5(){progress('05 // SOFT-HEART DETECTOR');screen('05 // SOFT-HEART DETECTOR','The scanner found something unexpected.',`<p>Behind the jokes and the nonchalant act, the system detected a person who can care deeply. What should it do with this information?</p>`,`<button onclick="pick('hide it');step6()">Delete it. Nobody needs to know.</button><button onclick="pick('keep it');step6()">Keep it. Being soft isn't a crime.</button><button onclick="pick('deny it');step6()">That's fake news. Next question.</button>`)}
+function step6(){progress('06 // MEMORY VAULT');screen('06 // MEMORY VAULT','Some files refuse to be labelled.',`<p>The bureau tried to sort this connection into neat folders. It failed.</p><div class="grid"><div class="tile"><b>BAKCHODI</b><span>Too much evidence.</span></div><div class="tile"><b>ROASTING</b><span>Ongoing investigation.</span></div><div class="tile"><b>RANDOM TALKS</b><span>Unscheduled but welcome.</span></div><div class="tile"><b>SOFT MOMENTS</b><span>Subject denies everything.</span></div></div><p class="gold">Some people don't fit into a folder. They become part of the story instead.</p>`,`<button class="primary" onclick="pick('vault opened');step7()">Unlock the next file →</button>`)}
+function step7(){progress('07 // THE UNPREDICTABLE');screen('07 // UNPREDICTABLE VARIABLE','Choose a door. No hints.',`<p>One door leads to more chaos. One leads to a quiet truth. One leads to a suspiciously dramatic system error.</p>`,`<button onclick="pick('chaos door');step8()">DOOR A — CHAOS</button><button onclick="pick('truth door');step8()">DOOR B — THE QUIET TRUTH</button><button onclick="pick('error door');step8()">DOOR C — DEFINITELY NOT A TRAP</button>`)}
+function step8(){progress('08 // SYSTEM GLITCH');screen('08 // SYSTEM GLITCH','Wait. This wasn't in the code.',`<div class="terminal">WARNING: EMOTIONAL DATA DETECTED
+WARNING: SYSTEM CANNOT CATEGORISE SUBJECT
+WARNING: INVESTIGATOR HAS BECOME SENTIMENTAL
+
+Attempting to restore professional distance...
+FAILED.</div><p>The system has one question it cannot answer by itself.</p><p class="pink">Can an ordinary person become an unexpectedly important part of your days?</p>`,`<button onclick="pick('yes');step9()">Yes. It happens.</button><button onclick="pick('depends');step9()">Depends how annoying they are.</button><button onclick="pick('no comment');step9()">No comment. This is getting personal.</button>`)}
+function step9(){progress('09 // FINAL DIAGNOSTIC');screen('09 // FINAL DIAGNOSTIC','One last scan.',`<p>Pick the message the system should send to the subject's future self.</p>`,`<button onclick="pick('be kind to yourself');step10()">Be a little kinder to yourself.</button><button onclick="pick('keep being weird');step10()">Never become boring. It would be suspicious.</button><button onclick="pick('both');step10()">Both. Obviously.</button>`)}
+function step10(){progress('10 // DECLASSIFICATION');screen('10 // DECLASSIFICATION','The file is almost open.',`<p>The bureau has reached its conclusion. Before the final reveal, choose the official classification.</p>`,`<button onclick="pick('one of one');step11()">ONE OF ONE</button><button onclick="pick('beautifully chaotic');step11()">BEAUTIFULLY CHAOTIC</button><button onclick="pick('impossible to replace');step11()">IMPOSSIBLE TO CATEGORISE</button>`)}
+function step11(){progress('11 // FINAL TRANSMISSION');fill.style.width='100%';screen('11 // CASE RESOLVED','The anomaly was never a problem.',`<div class="center"><div class="number">11:11</div><span class="stamp">FILE DECLASSIFIED</span></div><div class="terminal">CASE: AARU
+RESULT: NOT A GLITCH
+CLASSIFICATION: ONE OF ONE
+RECOMMENDATION: KEEP THIS HUMAN AROUND</div><p>The bureau expected to find a problem to solve. Instead, it found someone who is equal parts chaos, overthinking, nonchalance, laughter and a soft heart she doesn't always show.</p><p>You're allowed to be all of those things. You don't have to be endlessly cheerful, perfectly understood or easy to figure out. I hope you get people and moments that make it easier to be yourself.</p><div class="rule"></div><h3>ONE WISH FOR YOU</h3><p class="gold">I hope life is kind to you in ways you don't have to ask for. I hope ordinary days surprise you with reasons to laugh, that the people around you notice the good you bring, and that you never mistake a difficult day for a difficult life.</p><p>And selfishly, I hope there are many more ridiculous conversations, unexpected jokes and memories waiting to happen. No grand explanation. Just genuinely glad our paths crossed.</p><p class="pink">Happy 11:11, Aaru. Stay wonderfully, inconveniently you.</p><p class="muted small">THE SYSTEM DENIES HAVING FEELINGS. THE SYSTEM IS LYING.</p>`,`<button class="primary" onclick="restart()">REOPEN THE CASE ↻</button>`)}
+function restart(){n=0;answers=[];progress('AWAITING SUBJECT');app.innerHTML=`<div class="kicker">Incoming transmission // 11:11</div><h1>THE<br><span class="pink">AARU</span><br>ANOMALY</h1><p>The bureau has received another suspicious signal.</p><button class="primary" onclick="begin()">INVESTIGATE AGAIN →</button>`}
+</script>
+</body>
+</html>
